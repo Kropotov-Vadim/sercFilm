@@ -12,10 +12,13 @@ const PostList = styled.div`
 const Posts = ({post}) => {
 
   const elem = post.map((item) => {
-    const {...itemProps} = item;
-    return (
-      <PostItem {...itemProps}/>
-    )
+    if (item.marked_as_ads === 0){
+      const {...itemProps} = item;
+      return (
+        <PostItem {...itemProps}/>
+      )
+    }
+    return false;
   })
 
   return(
