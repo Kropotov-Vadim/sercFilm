@@ -17,8 +17,7 @@ export default class SelectBtn extends Component {
   constructor(props) {
     super(props);
     this.state={
-      term: '',
-      buf: undefined
+      term: ''
     }
     this.onUpdateSerch = this.onUpdateSerch.bind(this);
   }
@@ -30,7 +29,7 @@ export default class SelectBtn extends Component {
       );
     this.props.onUpdateSerch(term);
     this.props.getPosts();
-    this.props.item.active = !this.props.item.active;  
+    this.props.onActive(this.props.item.id);  
   }
 
   render() {

@@ -45,6 +45,7 @@ class App extends Component {
     }
 
     this.onUpdateSerch = this.onUpdateSerch.bind(this);
+    this.onToggleActive = this.onToggleActive.bind(this);
   }
 
   getPosts = async () => {
@@ -54,6 +55,21 @@ class App extends Component {
     this.setState(
       this.state.data = dataPosts.response.items,
     );
+  }
+
+  onToggleActive(id) {
+    this.setState(({select}) => {
+      const index = select.findIndex(elem => elem.id === id);
+
+      const old = select[index];
+      const newItem = {...old, active: !old.active};
+
+      const newArr = [...select.slice(0, index), newItem, ...select.slice(index+1)];
+
+      return {
+        select: newArr
+      }
+    })
   }
 
   onFilter(items, term) {
@@ -79,11 +95,13 @@ class App extends Component {
       <Container>
         <BtnGroup>
           {this.state.select.map((item) => (
-            <SelectBtn item={item} getPosts={this.getPosts} onUpdateSerch={this.onUpdateSerch} />
+            <SelectBtn item={item} getPosts={this.getPosts} onUpdateSerch={this.onUpdateSerch} onActive={this.onToggleActive} />
           ))}
         </BtnGroup>
         <div> 
-          <Posts post={visiblePosts} />
+          <Posts 
+            post={visiblePosts} 
+          />
         </div>
       </Container>
      </div>
